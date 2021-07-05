@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 import cv2
 import torch
-from torch.version import transforms
+from torchvision import transforms
 
 # yolov5
 from yolov5.models.experimental import attempt_load
