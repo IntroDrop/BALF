@@ -1,0 +1,11 @@
+﻿<table class="table table-striped">
+  <tbody>
+    {% for key in ["病例编号", "图像块可疑度", "图像块在原图的位置","使用的目标检测模型"] %}
+    <tr>
+      <td><b>{{ key|e|capitalize }}</b></td>
+      <td>{{ data[key]|e }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

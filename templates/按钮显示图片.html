@@ -1,0 +1,17 @@
+<body>
+<script type="text/javascript">
+	function show(){
+		var s = document.getElementById("s");
+		s.style.display="block";
+	}
+	function hide(){
+		var h = document.getElementById("s");
+		h.style.display = "none";
+	}
+//在这里,虽然说定义的变量s和h的意义是一样的,但是不能提取出来,这涉及到了文件的加载,如果提出出来的话,在定义这个变量时是我们还没有这个id属性,是加载不到的,如果一定要提取出来的话,就必须把整个JavaScript的代码放到放到body的最后面
+</script>
+
+<input type="button" value="显示周边3x3图像块" onClick="show()">
+<input type="button" value="隐藏周边3x3图像块" onClick="hide()">
+<img src="001.jpg" id="s" style="display:none">
+</body>

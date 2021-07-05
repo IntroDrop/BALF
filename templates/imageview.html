@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ data.nxn}} {% endblock %}
+
+{% block content %}
+<!--<div> 可定义文档中的分区或节（division/section）-->
+<div class="container" style="width:100%;">
+
+<!--  <nav> 标签定义导航链接的部分。如果文档中有“前后”按钮，则应该把它放到 <nav> 元素中。-->
+  <nav class="navbar">
+    <div class="navbar-header">
+
+<!--被 <span> 元素包含的文本，您可以使用 CSS 对它定义样式，或者使用 JavaScript 对它进行操作。      -->
+    <span class="navbar-brand">{{ config.APPNAME }}</span>
+    </div>
+
+<!--    <form class="navbar-form navbar-left" role="search" name="goto" action="/goto" method="POST">-->
+<!--      <div class="form-group">-->
+<!--        <input type="text" name="index" class="form-control" placeholder="Go to index">-->
+<!--      </div>-->
+<!--      <button type="Go" class="btn btn-default">Go</button>-->
+<!--    </form>-->
+
+    <ul class="nav navbar-nav">
+      <li><a href="/"><button type="Go" class="btn btn-default">返回首张</button></a></li>
+      <li><a href="/{{pager.prev}}"><button type="Go" class="btn btn-default">上一张</button></a> </li>
+      <li><a href="/{{pager.next}}"><button type="Go" class="btn btn-default">下一张</button></a> </li>
+<!--      {% include 'links.html' %}-->
+    </ul>
+  </nav>
+
+  <div class="row">
+
+<!--    col-md-6 就是当这个内容在电脑上显示，就占6格，刚好是电脑屏幕的1/2。-->
+    <div class="col-md-6">
+      <img src="{{ url_for('static', filename=data.find_img+data.nxn+'.jpg') }}" class="img-responsive center-block" alt="">
+    </div>
+
+    <div class="col-md-6">
+      <!--<h2>{{data.name}}</h2>-->
+      {% include 'table.html' %}
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <script type="text/javascript">
+        function show3x3(){
+            var h = document.getElementById("nxn");
+            h.style.height='768px';
+            h.style.width='768px';
+            h.innerHTML =
+                    "<ul style=\"margin:0;padding:0;\">\n" +
+                    "{% for ele in data['3x3_list'] %}\n" +
+                    "<li style=\"margin:0;padding:0;list-style-type:none;float:left;width:256px;height:256px;\">" +
+                    "<a href=\"#\"><img src=\"{{ url_for('static', filename=data.find_img+ele+'.jpg') }}\" style=\"display:block;\" /></a>" +
+                    "</li>\n" +
+                    "{% endfor %}\n" +
+                    "</ul>";
+            // 元素呈现为块级元素。
+            h.style.display="block";
+        }
+
+        function show5x5(){
+            var h = document.getElementById("nxn");
+            h.style.height='1280px';
+            h.style.width='1280px';
+            h.innerHTML =
+                    "<ul style=\"margin:0;padding:0;\">\n" +
+                    "{% for ele in data['5x5_list'] %}\n" +
+                    "<li style=\"margin:0;padding:0;list-style-type:none;float:left;width:256px;height:256px;\">" +
+                    "<a href=\"#\"><img src=\"{{ url_for('static', filename=data.find_img+ele+'.jpg') }}\" style=\"display:block;\" /></a>" +
+                    "</li>\n" +
+                    "{% endfor %}\n" +
+                    "</ul>";
+            h.style.display="block";
+        }
+
+        function hide(){
+            var h = document.getElementById("nxn");
+            h.style.display = "none";
+        }
+    //在这里,虽然说定义的变量s和h的意义是一样的,但是不能提取出来,这涉及到了文件的加载,如果提出出来的话,在定义这个变量时是我们还没有这个id属性,是加载不到的,如果一定要提取出来的话,就必须把整个JavaScript的代码放到放到body的最后面
+    </script>
+
+    <br><br><br>
+<!--    display:none;和visibility: hidden;都可以隐藏元素。区别是display:none彻底不显示元素，元素不占空间，跟完全没有一样。-->
+<!--    visibility: hidden只是把元素隐藏不显示，但还是占有原来的位置空间的。-->
+<!--    onClick当按钮被点击时执行Javascript代码-->
+<!--      "button"多数情况下，用于通过JS启动脚本-->
+    <input type="button" value="显示周边3x3图像块" onClick="show3x3()">
+    <input type="button" value="显示周边5x5图像块" onClick="show5x5()">
+    <input type="button" value="隐藏周边图像块" onClick="hide()">
+<!--    <img src="001.jpg" id="s" style="display:none">-->
+
+    <div style="display:none" id="nxn">
+    </div>
+    <!--    <img src="{{ url_for('static', filename='images/'+data.nxn+'.jpg') }}" class="img-responsive center-block" alt="">-->
+  </div>
+
+
+</div>
+
+{% endblock %}
