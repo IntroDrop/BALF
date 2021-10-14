@@ -10,6 +10,7 @@ class ImageWithMouseControl(QWidget):
     scaled_img: 缩放后的图像
     first: 因为调用__init__函数时, 部件未渲染, 所以采取了曲线救国的方式
     """
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.parent = parent
@@ -74,21 +75,25 @@ class ImageWithMouseControl(QWidget):
         scale_pixel = 50
         r = int(self.scaled_img.width() / self.scaled_img.height())
 
-        if e.angleDelta().y() < 0 and self.scaled_img.width()>=2*scale_pixel:
+        if e.angleDelta().y() < 0 and self.scaled_img.width() >= 2 * scale_pixel:
             # 放大图片, 向后滑
             # scaledToWidth只需要提供宽度, 高度在函数内完成计算
             self.scaled_img = self.img.scaledToWidth(self.scaled_img.width() - scale_pixel)
             # 图片从鼠标位置缩放
-            new_w = e.x() - (self.scaled_img.width() * (e.x() - self.point.x())) / (self.scaled_img.width() + scale_pixel)
-            new_h = e.y() - (self.scaled_img.height() * (e.y() - self.point.y())) / (self.scaled_img.height() + scale_pixel * r)
+            new_w = e.x() - (self.scaled_img.width() * (e.x() - self.point.x())) / (
+                    self.scaled_img.width() + scale_pixel)
+            new_h = e.y() - (self.scaled_img.height() * (e.y() - self.point.y())) / (
+                    self.scaled_img.height() + scale_pixel * r)
             self.point = QPoint(new_w, new_h)
             self.repaint()
 
         elif e.angleDelta().y() > 0:
             # 缩小图片, 向前滑
             self.scaled_img = self.img.scaledToWidth(self.scaled_img.width() + scale_pixel)
-            new_w = e.x() - (self.scaled_img.width() * (e.x() - self.point.x())) / (self.scaled_img.width() - scale_pixel)
-            new_h = e.y() - (self.scaled_img.height() * (e.y() - self.point.y())) / (self.scaled_img.height() - scale_pixel * r)
+            new_w = e.x() - (self.scaled_img.width() * (e.x() - self.point.x())) / (
+                    self.scaled_img.width() - scale_pixel)
+            new_h = e.y() - (self.scaled_img.height() * (e.y() - self.point.y())) / (
+                    self.scaled_img.height() - scale_pixel * r)
             self.point = QPoint(new_w, new_h)
             self.repaint()
 
